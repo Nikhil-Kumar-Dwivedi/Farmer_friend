@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_babel import Babel
+import requests
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -19,24 +20,53 @@ def get_locale():
 def indi():
     return render_template('welcome.html')
 
+# --------------------------------------------------------------------------------
+
+@app.route('/crop_recommendations')
+def crop_recommendations():
+    # Define hardcoded data for cities and their best crops to grow
+    crop_recommendations = [
+        {'city': 'City1', 'best_crop': 'Wheat'},
+        {'city': 'City2', 'best_crop': 'Rice'},
+        {'city': 'City3', 'best_crop': 'Corn'},
+        # Add more data as needed
+    ]
+    return render_template('crop_recommendations.html', crop_recommendations=crop_recommendations)
+
+
+# ----------------------------------------------------------------------------------------------
+
+@app.route('/soil_profile')
+def soil_profile():
+    return render_template('soil_profile.html')
+
+# ---------------------------------------------------------------------------------------
+
 @app.route('/next_page')
 def next_page():
     # Add logic for handling the next page
     return render_template('next_page.html')
+
+# ---------------------------------------------------------------------------------------
+
+
   
 @app.route('/show_weather')
 def show_weather():
     # Add the logic to display weather information
     return render_template('indi.html')
+# ---------------------------------------------------------------------------------------
 
-@app.route('/soil_profile')
-def soil_profile():
-    # Add the logic to display soil profile information
-    return render_template('soil_profile.html')
+
+# @app.route('/soil_profile')
+# def soil_profile():
+#     # Add the logic to display soil profile information
+#     return render_template('soil_profile.html')
+# ---------------------------------------------------------------------------------------
+
 
 @app.route('/government_schemes')
 def government_schemes():
-    # Add the logic to display government schemes information
     return render_template('government_schemes.html')
   
 # -------------------------------------------------------------------------------------
@@ -46,6 +76,8 @@ def set_language():
     language = request.args.get('language', 'en')
     session['language'] = language  # Store the selected language in the session
     return jsonify({'status': 'success', 'language': language})
+# ---------------------------------------------------------------------------------------
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -55,6 +87,8 @@ def index():
         return render_template('indi.html', current_weather=current_weather, forecast_weather=forecast_weather, error_message=error_message)
 
     return render_template('indi.html', current_weather=None, forecast_weather=None, error_message=None)
+# ---------------------------------------------------------------------------------------
+
 
 def get_weather_data(city):
     api_key = '759f8c8419a3090b77dface5eb5e88aa'
