@@ -1,6 +1,6 @@
-# 🌾 Farmer Friends
+# 🌾 Farmer_friend
 
-**Farmer Friends** is a user-centric Flask web application designed to assist **farmers** by providing:
+**Farmer_friend** is a user-centric Flask web application designed to assist **farmers** by providing:
 
 - 🌦️ **Real-time Weather Updates**
 - 🌱 **Crop Recommendations**
