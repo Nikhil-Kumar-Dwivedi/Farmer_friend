@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-info {
+            text-align: left;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .profile-info label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+            color: #333;
+            margin-right: 10px;
+        }
+        .profile-info span {
+            color: #666;
+        }
+        .edit-profile-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            padding: 8px 20px;
+            transition: background-color 0.3s ease;
+        }
+        .edit-profile-link:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Your Profile Page!</h1>
+        <div class="profile-info">
+            <label for="phone_number">Telephone Number:</label>
+            <span>{{ user.phone_number }}</span>
+        </div>
+        <div class="profile-info">
+            <label for="email">Email:</label>
+            <span>{{ user.email }}</span>
+        </div>
+        <div class="profile-info">
+            <label for="location">Farm Location:</label>
+            <span>{{ user.location }}</span>
+        </div>
+
+        <div class="profile-info">
+            <label for="gender">Gender:</label>
+            <span>{{ user.gender }}</span>
+        </div>
+        <div class="profile-info">
+            <label for="age">Age:</label>
+            <span>{{ user.age }}</span>
+        </div>
+        <div class="profile-info">
+            <label for="marital_status">Marital Status:</label>
+            <span>{{ user.marital_status }}</span>
+        </div>
+        <div class="profile-info">
+            <label for="citizenship">Citizenship:</label>
+            <span>{{ user.citizenship }}</span>
+        </div>
+
+        <!-- Add an edit profile link -->
+        <a href="#" class="edit-profile-link">Edit Profile</a>
+    </div>
+</body>
+</html>

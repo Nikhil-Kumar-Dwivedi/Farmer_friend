@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/bg_4.jpg'); /* Specify the path to your background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 150vh; /* Set the height to 100% of the viewport height */
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #eb8305;
+        }
+
+        #cityNotFound {
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #searchContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #citySearchInput {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        #searchButton {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #searchButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Crop Recommendations</h2>
+    <div id="searchContainer">
+        <form id="citySearchForm">
+            <input type="text" id="citySearchInput" placeholder="Search city...">
+            <input type="submit" value="Search" id="searchButton">
+        </form>
+    </div>
+    <div id="cityNotFound" style="display: none;">City not found</div>
+    <table id="cityTable">
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Best Crop to Grow</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mumbai</td>
+                <td>Rice, wheat, vegetables, fruits</td>
+            </tr>
+            <tr>
+                <td>Delhi</td>
+                <td>Wheat, rice, pulses, vegetables</td>
+            </tr>
+            <tr>
+                <td>Kolkata</td>
+                <td>Rice, jute, vegetables, fruits</td>
+            </tr>
+            <tr>
+                <td>Chennai</td>
+                <td>Rice, pulses, sugarcane, cotton</td>
+            </tr>
+            <tr>
+                <td>Bengaluru</td>
+                <td>Coffee, tea, spices, fruits</td>
+            </tr>
+            <tr>
+                <td>Hyderabad</td>
+                <td>Rice, maize, vegetables, fruits</td>
+            </tr>
+            <tr>
+                <td>Pune</td>
+                <td>Sugarcane, grapes, vegetables</td>
+            </tr>
+            <tr>
+                <td>Ahmedabad</td>
+                <td>Cotton, groundnut, tobacco, vegetables</td>
+            </tr>
+            <tr>
+                <td>Jaipur</td>
+                <td>Wheat, barley, mustard, pulses</td>
+            </tr>
+            <tr>
+                <td>Lucknow</td>
+                <td>Rice, wheat, barley, sugarcane</td>
+            </tr>
+            <tr>
+                <td>Patna</td>
+                <td>Rice, sugarcane, pulses, vegetables</td>
+            </tr>
+            <tr>
+                <td>Bhubaneswar</td>
+                <td>Rice, pulses, oilseeds, vegetables</td>
+            </tr>
+            <tr>
+                <td>Chandigarh</td>
+                <td>Wheat, rice, maize, vegetables</td>
+            </tr>
+            <tr>
+                <td>Guwahati</td>
+                <td>Tea, rice, fruits, vegetables</td>
+            </tr>
+            <tr>
+                <td>Indore</td>
+                <td>Soybean, wheat, pulses, vegetables</td>
+            </tr>
+            <tr>
+                <td>Kochi</td>
+                <td>Coconut, rubber, spices, vegetables</td>
+            </tr>
+            <tr>
+                <td>Nagpur</td>
+                <td>Oranges, cotton, pulses, vegetables</td>
+            </tr>
+            <tr>
+                <td>Varanasi</td>
+                <td>Rice, wheat, lentils, vegetables</td>
+            </tr>
+            <tr>
+                <td>Coimbatore</td>
+                <td>Cotton, sugarcane, pulses, vegetables</td>
+            </tr>
+            <tr>
+                <td>Amritsar</td>
+                <td>Wheat, barley, vegetables, fruits</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        document.getElementById("citySearchForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            searchCity();
+        });
+
+        document.getElementById("citySearchInput").addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) { // Enter key
+                event.preventDefault();
+                searchCity();
+            }
+        });
+
+        function searchCity() {
+            var input = document.getElementById("citySearchInput").value.toLowerCase();
+            var rows = document.getElementById("cityTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+            var found = false;
+            for (var i = 0; i < rows.length; i++) {
+                var city = rows[i].getElementsByTagName("td")[0].innerText.toLowerCase();
+                if (city.includes(input)) {
+                    rows[i].style.display = "";
+                    found = true;
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+            if (!found) {
+                document.getElementById("cityNotFound").style.display = "block";
+            } else {
+                document.getElementById("cityNotFound").style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

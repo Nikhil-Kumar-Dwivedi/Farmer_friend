@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .mt-4 {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000; /* Ensure it's on top of other elements */
+        }
+
+        .mt-4 select {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .mt-4 select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #333;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 2em;
+            width: 80%;
+        }
+
+        .option-box {
+            width: 280px; /* Adjusted width */
+            padding: 3px;
+            margin: 20px;
+            background-color: #f5f5f5;
+            border-radius: 160px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            color: #138808;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .option-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-button {
+            width: 220px;
+            padding: 25px;
+            margin: 20px;
+            background-color: #6fbf73; /* Green color */
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            color: #fff;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .profile-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Style for the sign-up button */
+        .signup-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4caf50; /* Green color */
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-button:hover {
+            background-color: #45a049; /* Darker green color */
+        }
+
+        /* Style for the register button */
+        .register-button {
+            position: absolute;
+            top: 20px;
+            left: 1070px;
+            padding: 10px 20px;
+            background-color: #4caf50; /* Green color */
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .register-button:hover {
+            background-color: #45a049; /* Darker green color */
+        }
+
+        /* Notification bell icon */
+        .notification-icon {
+            position: absolute;
+            top: 560px;
+            left: 20px;
+            font-size: 40px;
+            color: #ffffff;
+            cursor: pointer;
+            z-index: 9999; /* Ensure it's above other content */
+        }
+
+        .notification-icon:hover {
+            color: #f70b0b; /* Change color on hover if desired */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mt-4">
+        <form method="GET" action="{{ url_for('set_language') }}">
+            <select name="language" onchange="this.form.submit()">
+                <option value="en" {% if current_language == 'en' %}selected{% endif %}>English</option>
+                <option value="hi" {% if current_language == 'hi' %}selected{% endif %}>Hindi</option>
+                <option value="tm" {% if current_language == 'tm' %}selected{% endif %}>Tamil</option>
+                <option value="tu" {% if current_language == 'tu' %}selected{% endif %}>Telugu</option>
+            </select>
+        </form>
+    </div> 
+
+
+    {% if user_name %}
+    <p>Welcome, {{ user_name }}!</p>
+    {% endif %}
+
+    <!-- Notification bell icon -->
+    <div class="notification-icon">
+        <i class="fas fa-bell"></i>
+    </div>
+
+    <a href="{{ url_for('notifications') }}" class="notification-icon">
+        <i class="fas fa-bell"></i>
+    </a>
+
+    <button class="register-button" onclick="window.location.href='{{ url_for('register_page') }}';">Register</button>
+    <button class="signup-button" onclick="window.location.href='{{ url_for('signin_page') }}';">Sign in</button>
+
+    <video autoplay muted loop>
+        <source src="{{ url_for('static', filename='videos/v4.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="profile-button" onclick="window.location.href='{{ url_for('profile_page') }}';">
+        <h1>My Profile</h1>
+        <!-- <p>My Job</p> -->
+    </div>
+
+    <div class="container">
+        <div class="option-box" onclick="window.location.href='{{ url_for('show_weather') }}';">
+            <h1>Show Weather</h1>
+            <p>Click to see the weather forecast.</p>
+        </div>
+        
+        <div class="option-box" onclick="window.location.href='{{ url_for('crop_recommendations') }}';">
+            <h1>Crop Info</h1>
+            <p>Click to view Crop details.</p>
+        </div>
+        
+        <div class="option-box" onclick="window.location.href='{{ url_for('government_schemes') }}';">
+            <h1>Government Schemes</h1>
+            <p>Click to explore government schemes.</p>
+        </div>
+    </div>
+</body>
+</html>
